@@ -1,12 +1,12 @@
 const loginForm = document.getElementById("login-form");
-const usernameInput = document.getElementById("username");
-const passwordInput = document.getElementById("password");
+const usernameInput = document.getElementById("username") as HTMLInputElement | null;
+const passwordInput = document.getElementById("password") as HTMLInputElement | null;
 
 const CORRECT_USERNAME = "admin123";
 const CORRECT_PASSWORD = "coolPassword_123";
 const SECRET_USERNAME = "johnsnow";
 
-let errors = [];
+let errors: string[] = [];
 const overlay = document.getElementById("overlay");
 const secretGif = document.getElementById("secret-gif");
 
@@ -30,32 +30,32 @@ const errorMessages = {
     invalid: "Неверный логин или пароль"
 };
 
-const validateUsername = (username) => {
+const validateUsername = (username: string | undefined) => {
     if (!username) {
         errors.push(errorMessages.username.empty);
     } else {
         if (username.length < 6) errors.push(errorMessages.username.minLength);
         if (username.length > 20) errors.push(errorMessages.username.maxLength);
-        if (!/^[a-zA-Z0-9_-]+$/.test(username)) {
+        if (!/^[a-zA-Z0-9_-]+$/.test(<string>username)) {
             errors.push(errorMessages.username.invalidChars);
         }
-        if (usernameInput.value === SECRET_USERNAME) {
+        if (usernameInput?.value === SECRET_USERNAME) {
             //alert("❄️ You know nothing, Jon Snow", "error");
             startSnow();
         }
     }
 }
 
-const validatePassword = (password) => {
+const validatePassword = (password: string | undefined) => {
     if (!password) {
         errors.push(errorMessages.password.empty);
     } else {
         if (password.length < 8) errors.push(errorMessages.password.minLength);
         if (password.length > 30) errors.push(errorMessages.password.maxLength);
-        if (!/\d/.test(password)) errors.push(errorMessages.password.noDigit);
-        if (!/[A-Z]/.test(password)) errors.push(errorMessages.password.noUpper);
-        if (!/[a-z]/.test(password)) errors.push(errorMessages.password.noLower);
-        if (!/[_!@#]/.test(password)) {
+        if (!/\d/.test(<string>password)) errors.push(errorMessages.password.noDigit);
+        if (!/[A-Z]/.test(<string>password)) errors.push(errorMessages.password.noUpper);
+        if (!/[a-z]/.test(<string>password)) errors.push(errorMessages.password.noLower);
+        if (!/[_!@#]/.test(<string>password)) {
             errors.push(errorMessages.password.noSpecial);
         }
         if (/[^a-zA-Z0-9_!@#]/.test(password)) {
@@ -66,25 +66,26 @@ const validatePassword = (password) => {
     return errors.length ? errors : null;
 };
 
-const saveCredentials = (remember) => {
+const saveCredentials = (remember: boolean | undefined) => {
     localStorage.removeItem('rememberedUsername');
     sessionStorage.removeItem('sessionUsername');
 
     if (remember) {
-        localStorage.setItem('rememberedUsername', usernameInput.value);
+        localStorage.setItem('rememberedUsername', <string>usernameInput?.value);
     } else {
-        sessionStorage.setItem('sessionUsername', usernameInput.value);
+        sessionStorage.setItem('sessionUsername', <string>usernameInput?.value);
     }
 };
 
 function startSnow() {
     document.body.classList.add('snow-background');
-    overlay.classList.remove("hidden");
-    secretGif.classList.remove("hidden");
+    overlay?.classList.remove("hidden");
+    secretGif?.classList.remove("hidden");
     const duration = 5 * 1000;
     const end = Date.now() + duration;
 
     function frame() {
+        // @ts-ignore
         confetti({
             particleCount: 8,
             spread: 70,
@@ -113,8 +114,8 @@ function startSnow() {
         } else {
         setTimeout(() => {
             document.body.classList.remove('snow-background');
-            overlay.classList.add("hidden");
-            secretGif.classList.add("hidden");
+            overlay?.classList.add("hidden");
+            secretGif?.classList.add("hidden");
         }, 500);
     }
     }
@@ -124,14 +125,16 @@ function startSnow() {
 
 const clearErrors = () => {
     errors = [];
-    usernameInput.classList.remove("error");
-    passwordInput.classList.remove("error");
+    usernameInput?.classList.remove("error");
+    passwordInput?.classList.remove("error");
 }
 
 function showErrors() {
     const usernameError = document.getElementById("username-error");
     const passwordError = document.getElementById("password-error");
+    // @ts-ignore
     usernameError.innerHTML = "";
+    // @ts-ignore
     passwordError.innerHTML = "";
 
     for (const error of errors) {
@@ -140,32 +143,33 @@ function showErrors() {
         div.textContent = error;
 
         if (error.includes("Логин")) {
-            usernameError.appendChild(div);
-            usernameInput.classList.add("error");
+            usernameError?.appendChild(div);
+            usernameInput?.classList.add("error");
         } else {
-            passwordError.appendChild(div);
-            passwordInput.classList.add("error");
+            passwordError?.appendChild(div);
+            passwordInput?.classList.add("error");
         }
     }
 }
 
 const checkCredentials = () => {
-    if (usernameInput.value === CORRECT_USERNAME &&
-        passwordInput.value === CORRECT_PASSWORD) {
-        saveCredentials(document.getElementById('remember').checked);
+    if (usernameInput?.value === CORRECT_USERNAME &&
+        passwordInput?.value === CORRECT_PASSWORD) {
+        const rememberCheckbox = document.getElementById('remember') as HTMLInputElement | null;
+        saveCredentials(rememberCheckbox?.checked);
         alert("Вход выполнен успешно!");
         return;
     }
     errors.push(errorMessages.invalid);
 };
 
-loginForm.addEventListener("submit", (e) => {
+loginForm?.addEventListener("submit", (e) => {
     e.preventDefault();
 
     clearErrors();
 
-    validateUsername(usernameInput.value);
-    validatePassword(passwordInput.value);
+    validateUsername(usernameInput?.value);
+    validatePassword(passwordInput?.value);
 
     if (errors.length === 0) {
         checkCredentials();
@@ -177,5 +181,8 @@ loginForm.addEventListener("submit", (e) => {
 window.addEventListener('DOMContentLoaded', () => {
     const username = localStorage.getItem('rememberedUsername') ||
         sessionStorage.getItem('sessionUsername');
-    if (username) usernameInput.value = username;
+    if (username) {
+        // @ts-ignore
+        usernameInput.value = username;
+    }
 });

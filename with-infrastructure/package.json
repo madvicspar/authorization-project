@@ -1,9 +1,13 @@
 {
   "name": "with-infrastructure",
   "version": "1.0.0",
-  "main": "script.js",
+  "main": "src/script.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "type-check": "tsc --noEmit",
+    "build": "tsc",
+    "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
+    "start": "node dist/index.js"
   },
   "engines": {
     "node": "20.17.0",
@@ -16,5 +20,8 @@
   "description": "",
   "dependencies": {
     "lodash": "4.17.21"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
   }
 }
