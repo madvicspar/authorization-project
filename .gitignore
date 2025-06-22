@@ -1,3 +1,5 @@
 /.idea/
 /with-infrastructure/node_modules/
 /with-infrastructure/dist/
+/framework/dist/
+/framework/node_modules/
