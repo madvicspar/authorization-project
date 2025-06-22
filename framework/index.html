@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Нативная версия авторизации</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<div id="overlay" class="hidden"></div>
+<body>
+  <header>
+    <span>pupupu</span>
+  </header>
+  <main>
+    <div id="secret-gif" class="hidden">
+      <img src="images/secret.gif" alt="Winter is here!">
+    </div>
+    <form id="login-form">
+      <h1>Войти в pupupu</h1>
+
+      <fieldset>
+        <button type="button" class="social-button" id="google" aria-label="Войти через Google">Войти через Google</button>
+        <button type="button" class="social-button" id="telegram" aria-label="Войти через Telegram">Войти через Telegram</button>
+      </fieldset>
+
+      <div class="divider">
+        <span>или</span>
+      </div>
+
+      <label for="username">
+        Логин
+        <input type="text" id="username" name="username" placeholder="Введите логин" required aria-required="true">
+      </label>
+
+      <div id="username-error" class="input-error"></div>
+
+      <label for="password">
+        Пароль
+        <input type="password" id="password" name="password" placeholder="Введите пароль" required aria-required="true">
+      </label>
+
+      <div id="password-error" class="input-error"></div>
+
+      <label class="remember-label">
+        <input type="checkbox" id="remember" name="remember">
+        Сохранять сессию?
+      </label>
+
+      <button type="submit" id="login-button">Войти</button>
+    </form>
+  </main>
+  <footer>
+    © 2025 madvicspar
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script type="module" src="/src/script.ts"></script>
+</body>
+</html>
