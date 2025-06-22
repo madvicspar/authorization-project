@@ -1,1 +1,3 @@
 /.idea/
+/with-infrastructure/node_modules/
+/with-infrastructure/dist/
