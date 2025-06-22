@@ -1,0 +1,20 @@
+{
+  "name": "with-infrastructure",
+  "version": "1.0.0",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "20.17.0",
+    "npm": ">=9.0.0"
+  },
+  "packageManager": "npm@9.0.0",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "lodash": "4.17.21"
+  }
+}
