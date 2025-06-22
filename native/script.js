@@ -152,7 +152,6 @@ function showErrors() {
 const checkCredentials = () => {
     if (usernameInput.value === CORRECT_USERNAME &&
         passwordInput.value === CORRECT_PASSWORD) {
-        // TODO smth
         saveCredentials(document.getElementById('remember').checked);
         alert("Вход выполнен успешно!");
         return;
