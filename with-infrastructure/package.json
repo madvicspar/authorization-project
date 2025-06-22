@@ -6,10 +6,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "type-check": "tsc --noEmit",
     "build-ts": "tsc",
-    "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
+    "dev-ts": "tsc-watch --onSuccess \"node dist/index.js\"",
     "start": "node dist/index.js",
     "serve": "vite",
-    "build": "vite build"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix"
   },
   "engines": {
     "node": "20.17.0",
@@ -24,7 +27,16 @@
     "lodash": "4.17.21"
   },
   "devDependencies": {
+    "@eslint/js": "^9.29.0",
+    "@typescript-eslint/eslint-plugin": "^8.34.1",
+    "@typescript-eslint/parser": "^8.34.1",
+    "eslint": "^9.29.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.5.0",
+    "globals": "^16.2.0",
+    "prettier": "^3.5.3",
     "typescript": "^5.8.3",
+    "typescript-eslint": "^8.34.1",
     "vite": "^6.3.5"
   }
 }

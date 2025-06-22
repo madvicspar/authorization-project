@@ -85,7 +85,7 @@ function startSnow() {
     const end = Date.now() + duration;
 
     function frame() {
-        // @ts-ignore
+        // @ts-expect-error global function from the 'canvas-confetti' library loaded via CDN
         confetti({
             particleCount: 8,
             spread: 70,
@@ -132,10 +132,10 @@ const clearErrors = () => {
 function showErrors() {
     const usernameError = document.getElementById("username-error");
     const passwordError = document.getElementById("password-error");
-    // @ts-ignore
-    usernameError.innerHTML = "";
-    // @ts-ignore
-    passwordError.innerHTML = "";
+    if (usernameError)
+        usernameError.innerHTML = "";
+    if (passwordError)
+        passwordError.innerHTML = "";
 
     for (const error of errors) {
         const div = document.createElement("div");
@@ -182,7 +182,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const username = localStorage.getItem('rememberedUsername') ||
         sessionStorage.getItem('sessionUsername');
     if (username) {
-        // @ts-ignore
-        usernameInput.value = username;
+        if (usernameInput)
+            usernameInput.value = username;
     }
 });
