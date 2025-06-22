@@ -35,7 +35,7 @@ const errorMessages = {
   invalid: 'Неверный логин или пароль',
 };
 
-const validateUsername = (username: string | undefined) => {
+export const validateUsername = (username: string | undefined) => {
   if (!username) {
     errors.push(errorMessages.username.empty);
   } else {
@@ -51,7 +51,7 @@ const validateUsername = (username: string | undefined) => {
   }
 };
 
-const validatePassword = (password: string | undefined) => {
+export const validatePassword = (password: string | undefined) => {
   if (!password) {
     errors.push(errorMessages.password.empty);
   } else {
@@ -131,11 +131,15 @@ function startSnow() {
   frame();
 }
 
-const clearErrors = () => {
+export const clearErrors = () => {
   errors = [];
   usernameInput?.classList.remove('error');
   passwordInput?.classList.remove('error');
 };
+
+export function getErrors() {
+  return errors;
+}
 
 function showErrors() {
   const usernameError = document.getElementById('username-error');
